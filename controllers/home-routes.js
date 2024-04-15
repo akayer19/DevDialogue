@@ -9,6 +9,6 @@ router.get('/', (req, res) => {
   });
 });
 
-// more routes can be added here
+
 
 module.exports = router;  // Make sure this is at the end of the file
