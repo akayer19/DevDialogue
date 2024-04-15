@@ -1,0 +1,42 @@
+require('dotenv').config();
+const express = require('express');
+const session = require('express-session');
+const exphbs = require('express-handlebars');
+const Sequelize = require('sequelize');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+
+// Import your configuration
+const env = process.env.NODE_ENV || 'development';
+const config = require('./config/config.js')[env];
+
+// Create a Sequelize instance
+const sequelize = new Sequelize(config.database, config.username, config.password, config);
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Set up Handlebars.js engine
+const hbs = exphbs.create({});
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
+
+// Session setup with Sequelize store
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  store: new SequelizeStore({ db: sequelize }),
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: 'auto' }
+}));
+
+// Middleware to parse JSON and urlencoded form data
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
+
+// Import routes
+const routes = require('./controllers/home-routes');
+app.use(routes);
+
+// Start server
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
