@@ -1,0 +1,9 @@
+{{!-- This is where your blog post content will go --}}
+<h1>The Tech Blog</h1>
+{{#each posts as |post|}}
+    <article>
+        <h2>{{post.title}}</h2>
+        <p>{{post.summary}}</p>
+        <div>Posted by {{post.author}} on {{post.date}}</div>
+    </article>
+{{/each}}
