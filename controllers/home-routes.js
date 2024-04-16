@@ -2,19 +2,21 @@
 
 const express = require('express');
 const router = express.Router();
-const { Post } = require('../models'); // Assuming a Post model is set up
+const { User, Post } = require('../models');
 
 router.get('/', async (req, res) => {
     try {
-        const postData = await Post.findAll();
-        const posts = postData.map(post => post.get({ plain: true }));
-
-        res.render('home', { 
-            posts, 
-            loggedIn: req.session.loggedIn 
+        const fullPosts = await Post.findAll({
+            include: User,
+            order: [['createdAt', 'DESC']]
         });
+        const posts = fullPosts.map(post => post.get({ plain: true }));
+
+        console.log('Posts:', posts); // Log the fetched posts
+        res.render('home', { posts });
     } catch (err) {
-        res.status(500).json(err);
+        console.error('Error fetching posts:', err);
+        res.status(500).render('error', { message: 'Failed to fetch posts' });
     }
 });
 

@@ -1,9 +1,18 @@
-{{!-- This is where your blog post content will go --}}
-<h1>The Dev Dialogue</h1>
-{{#each posts as |post|}}
-    <article>
-        <h2>{{post.title}}</h2>
-        <p>{{post.summary}}</p>
-        <div>Posted by {{post.author}} on {{post.date}}</div>
-    </article>
-{{/each}}
+{{!-- home.handlebars --}}
+<main>
+    <h1>Welcome to the Homepage</h1>
+    {{#each posts}}
+    <div class="post">
+        <h2>{{this.title}}</h2>
+        <p>{{this.content}}</p>
+        <p>Posted by {{this.User.username}} on {{this.createdAt}}</p> 
+        <script>
+            console.log("Title:", "{{this.title}}");
+            console.log("Content:", "{{this.content}}");
+            console.log("Username:", "{{this.User.username}}");
+            console.log("Creation Date:", "{{this.createdAt}}");
+        </script>
+    </div>
+    {{/each}}
+</main>
+

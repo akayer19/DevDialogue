@@ -1,4 +1,4 @@
-// models/user.js
+const { Sequelize, DataTypes } = require('sequelize');
 const bcrypt = require('bcryptjs');
 
 module.exports = (sequelize, DataTypes) => {
