@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>My Dashboard</title>
+    <link rel="stylesheet" href="path/to/your/styles.css"> <!-- Make sure the path to CSS is correct -->
 </head>
 
 <body>
@@ -15,12 +16,20 @@
         <div class="post-list">
             {{#each posts}}
             <div class="post">
-                <h2>{{title}}</h2>
-                <p>{{content}}</p>
+                <div class="post-top">
+                    <h2 class="post-title"><a href="/post/{{this.id}}">{{this.title}}</a></h2>
+                    <p class="post-info">Posted by {{this.User.username}} on {{formatDate this.createdAt}}</p>
+
+                </div>
+                <div class="post-bottom">
+                    <p class="post-content">{{content}}</p>
+                    <!-- Edit link for each post on the dashboard -->
+                    <a href="/edit/{{id}}" class="edit-link">Edit</a>
+                </div>
             </div>
             {{/each}}
         </div>
-        <a href="/new-post">+ New Post</a>
+        <a href="/new-post" class="new-post-link">+ New Post</a>
     </main>
 </body>
 

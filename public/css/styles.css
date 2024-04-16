@@ -1,29 +1,167 @@
+/* Basic body styling */
 body {
-    font-family: 'Arial', sans-serif;
-    line-height: 1.6;
+    font-family: 'Arial', sans-serif; /* Modern and readable typeface */
+    background-color: grey; /* Light gray background color for all views */
+    color: #f4f4f4; /* Default text color */
+    margin: 0;
+    padding: 0;
 }
 
+/* Link styling */
+a {
+    color: #333; /* Default link color */
+    text-decoration: none; /* No underline for links */
+}
+
+/* Header and Navigation styles */
 header {
-    background: #333;
-    color: #fff;
-    padding: 10px 0;
+    color: #FFDAB9; /* Light peach text color for readability */
+    padding: 10px 20px; /* Padding for spacing around content */
+    text-align: left; /* Center alignment for header content */
 }
 
 nav a {
-    color: #fff;
-    margin: 0 10px;
+    margin: 0 15px; /* Horizontal spacing between navigation links */
+    font-size: 18px; /* Larger font size for navigation items */
 }
 
-article {
-    background: #f4f4f4;
-    margin: 20px;
+/* Main content area */
+main {
+    padding: 20px; /* Padding around the main content area */
+}
+
+/* Title styles within main content */
+h1 {
+    background-color: #8B4513; /* Matching the header background */
+    color: #f4f4f4; /* Text color similar to body background for contrast */
+    padding: 10px; /* Padding inside the title box */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Subtle shadow for depth */
+    display: inline-block; /* Ensures the element only takes up necessary space */
+    margin-top: 20px; /* Top margin for spacing from previous elements */
+}
+
+/* Post container styles */
+.post {
+    background-color: #ffffff; /* White background for posts */
+    margin-top: 15px; /* Space between posts */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Adds slight shadow for depth */
+    border-radius: 8px; /* Optional: Rounds the corners */
+}
+
+.post-top {
+    display: flex;          /* Enables flexbox */
+    justify-content: space-between; /* Distributes space between the children */
+    align-items: center;    /* Centers the items vertically */
+    flex-wrap: wrap;        /* Allows items to wrap onto the next line if space is tight */
     padding: 10px;
-    border-left: 4px solid #333;
+    background-color: #8B4513; /* Light grey background for the top part */
+    border-bottom: 1px solid #ddd; /* Separates the top from the bottom */
 }
 
+.post-title {
+    margin: 0;              /* Removes default margin */
+    flex-grow: 1;           /* Allows the title to expand and use available space */
+}
+
+.post-info {
+    white-space: nowrap;    /* Keeps the post info in a single line */
+    margin-left: 20px;      /* Adds some space between the title and the info */
+}
+
+.post-title a {
+    color: #f4f4f4; /* Darker color for emphasis on post titles */
+    text-decoration: none; /* No underline */
+}
+
+.post-bottom {
+    padding: 10px;
+}
+
+.post-content {
+    color: #666; /* Lighter text color for post content */
+    margin: 0; /* Aligns text nicely within the bottom container */
+}
+
+/* Footer styling */
 footer {
-    background: #333;
+    background-color: #333; /* Dark background for the footer */
+    color: #fff; /* White text for contrast */
+    text-align: center; /* Centered text within the footer */
+    padding: 10px; /* Padding for spacing inside the footer */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Media Queries for responsive adjustments */
+@media (max-width: 600px) {
+    nav a {
+        display: block; /* Stack nav items vertically on small screens */
+        margin: 10px 0; /* Adjust margin for stacked items */
+    }
+}
+
+.comment-link, .new-post-link {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #0066cc;
     color: #fff;
-    text-align: center;
-    padding: 10px 0;
+    border-radius: 4px;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+.new-post-link {
+    background-color: #28a745; /* Green background for action items */
+    margin-top: 20px;
+}
+
+.post-list {
+    margin-top: 20px;
+}
+.comment-link, .edit-link {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #0066cc;
+    color: #fff;
+    border-radius: 4px;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+.edit-link {
+    background-color: #ffcc00; /* Yellow background for edit links for visibility */
+}
+
+.new-post-link {
+    background-color: #28a745; /* Green background for new post links */
+    margin-top: 20px;
+}
+
+.comment-box {
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.comment-box textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.comment-box button {
+    padding: 8px 16px;
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.comment-box button:hover {
+    background-color: #4cae4c;
 }

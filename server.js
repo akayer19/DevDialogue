@@ -16,7 +16,25 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Setup Handlebars view engine
-const hbs = exphbs.create({});
+const hbs = exphbs.create({
+  helpers: {
+      formatDate: function(date) {
+          // Create a new Date object from the input date
+          const newDate = new Date(date);
+          // Format the date and time according to the locale
+          const formattedDate = newDate.toLocaleDateString("en-US", {
+              year: 'numeric', month: 'long', day: 'numeric'
+          });
+          const formattedTime = newDate.toLocaleTimeString("en-US", {
+              hour: '2-digit', minute: '2-digit', hour12: true
+          });
+          // Combine date and time into one string
+          return `${formattedDate} at ${formattedTime}`;
+      }
+  }
+});
+
+
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
@@ -40,11 +58,14 @@ app.use(express.static('public'));
 const homeRoutes = require('./controllers/home-routes');
 const authRoutes = require('./controllers/auth-routes'); // Import authentication routes
 const dashboardRoutes = require('./controllers/dashboard-routes'); // Import dashboard routes
+const commentRoutes = require('./controllers/comment-routes');
 
 // Use routes
 app.use(homeRoutes);
 app.use(authRoutes);
 app.use(dashboardRoutes);
+app.use('/comments', commentRoutes);
+
 
 // Sync database and start server
 sequelize.sync({ force: false }).then(() => {
