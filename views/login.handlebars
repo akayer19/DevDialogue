@@ -1,11 +1,16 @@
-{{!-- This is the login.handlebars file --}}
-
 <div class="login-container">
     <h1>Login</h1>
+    {{#if errors}}
+    <ul>
+        {{#each errors}}
+        <li>{{this}}</li>
+        {{/each}}
+    </ul>
+    {{/if}}
     <form action="/login" method="POST">
         <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
         </div>
 
         <div class="form-group">

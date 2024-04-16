@@ -1,14 +1,21 @@
+// home-routes.js
+
 const express = require('express');
 const router = express.Router();
+const { Post } = require('../models'); // Assuming a Post model is set up
 
-// Define routes
-router.get('/', (req, res) => {
-  // Render 'home' template using 'main' layout
-  res.render('home', {
-    layout: 'main' // This is usually the default and can be omitted if you have set 'main' as the default layout in the exphbs configuration
-  });
+router.get('/', async (req, res) => {
+    try {
+        const postData = await Post.findAll();
+        const posts = postData.map(post => post.get({ plain: true }));
+
+        res.render('home', { 
+            posts, 
+            loggedIn: req.session.loggedIn 
+        });
+    } catch (err) {
+        res.status(500).json(err);
+    }
 });
 
-
-
-module.exports = router;  // Make sure this is at the end of the file
+module.exports = router;
