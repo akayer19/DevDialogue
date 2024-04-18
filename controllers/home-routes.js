@@ -16,9 +16,9 @@ router.get('/', async (req, res) => {
         console.log('Posts:', posts);
 
         // Additional console log to check user's session and login status
-        console.log('Session ID:', req.sessionID);
-        console.log('User ID:', req.session.userId);
-        console.log('User Logged In:', req.session.userId != null);
+        console.log('home-routes.js router.get Session ID:', req.sessionID);
+        console.log('home-routes.js router.get User ID:', req.session.userId);
+        console.log('home-routes.js router.get User Logged In:', req.session.userId != null);
 
         // Render the 'home' view with posts and login status
         res.render('home', { 

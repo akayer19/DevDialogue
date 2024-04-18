@@ -75,13 +75,13 @@ function submitComment(postId) {
 
 // Handles the click on a post title, determining if the user is logged in
 function handlePostClick(event, userLoggedIn) {
-    console.log('Handling post click event');
-    console.log('User logged in:', userLoggedIn); // Log whether the user is logged in
+    console.log('Script, Handling post click event');
+    console.log('Script, User logged in:', userLoggedIn); // Log whether the user is logged in
     event.preventDefault();  // Prevent default anchor behavior
     event.stopPropagation(); // Stop event bubbling
 
     if (!userLoggedIn) {
-        console.log('Please log in to view post comments.'); // Or redirect to login
+        console.log('Script, Please log in to view post comments.'); // Or redirect to login
         setTimeout(() => {
             window.location.href = '/login'; // Redirects to login if not logged in
         }, 1000); // Delay of 1000 milliseconds (1 second)

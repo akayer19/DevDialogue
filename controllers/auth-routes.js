@@ -1,3 +1,5 @@
+// auth-routes.js
+
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const { User } = require('../models');
@@ -79,20 +81,20 @@ router.post('/signup', async (req, res) => {
 });
 
 router.get('/logout', (req, res) => {
-    console.log("Attempting to log out...");
+    console.log("router.get Attempting to log out...");
     if (req.session.loggedIn) {
-        console.log("Session found, destroying...");
+        console.log("router.get Session found, destroying...");
         req.session.destroy(err => {
             if (err) {
-                console.log("Error destroying session:", err);
+                console.log("router.get Error destroying session:", err);
                 res.status(500).send('Failed to log out');
             } else {
-                console.log("Session destroyed, redirecting...");
+                console.log("router.get Session destroyed, redirecting...");
                 res.redirect('/');
             }
         });
     } else {
-        console.log("No session found, redirecting...");
+        console.log("router.get No session found, redirecting...");
         res.redirect('/');
     }
 });

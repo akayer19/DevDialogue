@@ -67,13 +67,13 @@ app.use(authRoutes);
 app.use(dashboardRoutes);
 app.use('/comments', commentRoutes);
 
-// Sync database and start server
-sequelize.sync({ force: false }).then(() => {
-  console.log('Database synced!');
-  app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
-}).catch(err => {
-  console.error('Failed to sync database:', err);
-});
+// // Sync database and start server
+// sequelize.sync({ force: false }).then(() => {
+//   console.log('Database synced!');
+//   app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+// }).catch(err => {
+//   console.error('Failed to sync database:', err);
+// });
 
 // Error handling middleware
 app.use((err, req, res, next) => {

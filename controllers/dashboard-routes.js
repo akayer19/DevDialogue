@@ -5,16 +5,21 @@ const withAuth = require('../utils/auth');
 
 // Route to render the dashboard
 router.get('/dashboard', withAuth, async (req, res) => {
+    console.log("router.get/dashboard Checking if user is already logged in...");
     try {
+        console.log("router.get/dashboard User is already logged in, redirecting to dashboard...");
         const userPosts = await Post.findAll({
             where: {
                 userId: req.session.userId
             }
         });
         const posts = userPosts.map(post => post.get({ plain: true }));
+        console.log("router.get/dashboard Redirected to dashboard");
         // Render the dashboard template with the userLoggedIn variable
         res.render('dashboard', { userLoggedIn: true, posts });
+        console.log("router.get/dashboard Rendered dashboard");
     } catch (err) {
+        console.error('Error rendering dashboard:', err);
         res.status(500).json(err);
     }
 });
