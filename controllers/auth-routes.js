@@ -31,8 +31,11 @@ router.post('/login', async (req, res) => {
         // Set userId and loggedIn in the session
         req.session.userId = userData.id;
         req.session.loggedIn = true;
-
+        console.log("User logged in:", req.session.userId); // Log userId
+        console.log("Session logged in:", req.session.loggedIn); // Log loggedIn flag
         // Send a response with a script to set userLoggedIn in localStorage
+        console.log("Redirecting to dashboard...");
+
         res.send(`
             <script>
                 localStorage.setItem('userLoggedIn', 'true');
