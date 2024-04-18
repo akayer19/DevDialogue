@@ -1,27 +1,24 @@
-{{!-- home.handlebars --}}
-
 <main>
     <h1>Welcome to the Homepage</h1>
     {{#each posts}}
     <div class="post">
         <div class="post-top">
-            <h2 class="post-title" onclick="toggleCommentBox('{{this.id}}')">
-                <a href="javascript:void(0);">{{this.title}}</a>
+            <!-- Post title: click to toggle comment box -->
+            <h2 class="post-title">
+                <a href="#" onclick="toggleCommentBox('{{this.id}}');">
+                    {{this.title}}
+                </a>
             </h2>
             <p class="post-info">Posted by {{this.User.username}} on {{formatDate this.createdAt}}</p>
         </div>
         <div class="post-bottom">
             <p class="post-content">{{this.content}}</p>
         </div>
-        <!-- Hidden comment box -->
-        <div id="comment-box-{{this.id}}" class="comment-box" style="display:none;">
+        <!-- Comment box always shown -->
+        <div id="comment-box-{{this.id}}" class="comment-box">
             <textarea placeholder="Leave a comment..." rows="3"></textarea>
             <button type="button" onclick="submitComment('{{this.id}}')">Submit Comment</button>
         </div>
     </div>
     {{/each}}
 </main>
-
-
-
-

@@ -11,6 +11,7 @@
 <body>
     <header>
         <h1>Welcome to Your Dashboard</h1>
+        Logged in: {{userLoggedIn}} <!-- This will display true or false -->
     </header>
     <main>
         <div class="post-list">
@@ -31,6 +32,12 @@
         </div>
         <a href="/new-post" class="new-post-link">+ New Post</a>
     </main>
+
+    {{#if userLoggedIn}}
+    <p>Welcome back! You are logged in.</p>
+    {{else}}
+    <p>Hello guest! Please <a href="/login">log in</a> to continue.</p>
+    {{/if}}
 </body>
 
 </html>

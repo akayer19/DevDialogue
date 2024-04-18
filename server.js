@@ -7,7 +7,6 @@ const exphbs = require('express-handlebars');
 const flash = require('connect-flash');
 const { sequelize, User } = require('./models');
 
-
 // Import configurations
 const env = process.env.NODE_ENV || 'development';
 const config = require('./config/config.js')[env];
@@ -18,29 +17,31 @@ const PORT = process.env.PORT || 3000;
 // Setup Handlebars view engine
 const hbs = exphbs.create({
   helpers: {
-      formatDate: function(date) {
-          // Create a new Date object from the input date
-          const newDate = new Date(date);
-          // Format the date and time according to the locale
-          const formattedDate = newDate.toLocaleDateString("en-US", {
-              year: 'numeric', month: 'long', day: 'numeric'
-          });
-          const formattedTime = newDate.toLocaleTimeString("en-US", {
-              hour: '2-digit', minute: '2-digit', hour12: true
-          });
-          // Combine date and time into one string
-          return `${formattedDate} at ${formattedTime}`;
-      }
+    formatDate: function (date) {
+      // Create a new Date object from the input date
+      const newDate = new Date(date);
+      // Format the date and time according to the locale
+      const formattedDate = newDate.toLocaleDateString("en-US", {
+        year: 'numeric', month: 'long', day: 'numeric'
+      });
+      const formattedTime = newDate.toLocaleTimeString("en-US", {
+        hour: '2-digit', minute: '2-digit', hour12: true
+      });
+      // Combine date and time into one string
+      return `${formattedDate} at ${formattedTime}`;
+    }
   }
 });
-
 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
 // Setup session with Sequelize store
+const sessionSecret = process.env.SESSION_SECRET;
+console.log("SESSION_SECRET:", sessionSecret);
+
 app.use(session({
-  secret: process.env.SESSION_SECRET,
+  secret: sessionSecret,
   store: new SequelizeStore({ db: sequelize }),
   resave: false,
   saveUninitialized: false,
@@ -65,7 +66,6 @@ app.use(homeRoutes);
 app.use(authRoutes);
 app.use(dashboardRoutes);
 app.use('/comments', commentRoutes);
-
 
 // Sync database and start server
 sequelize.sync({ force: false }).then(() => {

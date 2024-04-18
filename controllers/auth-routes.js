@@ -9,7 +9,7 @@ router.use(flash());
 
 router.get('/login', (req, res) => {
     if (req.session.loggedIn) {
-        res.redirect('/dashboard');
+        res.redirect('/');
         return;
     }
     const errors = req.flash('error'); // Get flash messages
@@ -28,12 +28,17 @@ router.post('/login', async (req, res) => {
             req.flash('error', 'Incorrect username or password, please try again');
             return res.redirect('/login');
         }
-        req.session.save(() => {
-            req.session.userId = userData.id;
-            req.session.loggedIn = true;
-            req.flash('success', 'You are now logged in!');
-            res.redirect('/dashboard');
-        });
+        // Set userId and loggedIn in the session
+        req.session.userId = userData.id;
+        req.session.loggedIn = true;
+
+        // Send a response with a script to set userLoggedIn in localStorage
+        res.send(`
+            <script>
+                localStorage.setItem('userLoggedIn', 'true');
+                window.location.href = '/dashboard'; // Redirect to dashboard or home page
+            </script>
+        `);
     } catch (err) {
         req.flash('error', 'Failed to log in due to server error');
         res.status(500).redirect('/login');
@@ -41,6 +46,8 @@ router.post('/login', async (req, res) => {
         req.session.errors = []; // Clear flash messages after they are displayed
     }
 });
+
+
 
 
 
@@ -66,13 +73,24 @@ router.post('/signup', async (req, res) => {
 });
 
 router.get('/logout', (req, res) => {
+    console.log("Attempting to log out...");
     if (req.session.loggedIn) {
-        req.session.destroy(() => {
-            res.redirect('/');
+        console.log("Session found, destroying...");
+        req.session.destroy(err => {
+            if (err) {
+                console.log("Error destroying session:", err);
+                res.status(500).send('Failed to log out');
+            } else {
+                console.log("Session destroyed, redirecting...");
+                res.redirect('/');
+            }
         });
     } else {
+        console.log("No session found, redirecting...");
         res.redirect('/');
     }
 });
+
+
 
 module.exports = router;
