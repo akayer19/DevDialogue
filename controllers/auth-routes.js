@@ -8,11 +8,11 @@ const router = express.Router();
 router.use(flash());
 
 router.get('/login', (req, res) => {
-    console.log("Checking if user is already logged in...");
+    console.log("router.get Checking if user is already logged in...");
     if (req.session.loggedIn) {
-        console.log("User is already logged in, redirecting to dashboard...");
+        console.log("router.get User is already logged in, redirecting to dashboard...");
         res.redirect('/');
-        console.log("Redirected to dashboard");
+        console.log("router.get Redirected to dashboard");
         return;
     }
     const errors = req.flash('error'); // Get flash messages
@@ -34,10 +34,10 @@ router.post('/login', async (req, res) => {
         // Set userId and loggedIn in the session
         req.session.userId = userData.id;
         req.session.loggedIn = true;
-        console.log("User logged in:", req.session.userId); // Log userId
-        console.log("Session logged in:", req.session.loggedIn); // Log loggedIn flag
+        console.log("Router.Post User logged in:", req.session.userId); // Log userId
+        console.log("Router.Post Session logged in:", req.session.loggedIn); // Log loggedIn flag
         // Send a response with a script to set userLoggedIn in localStorage
-        console.log("Redirecting to dashboard...");
+        console.log("Router.Post Redirecting to dashboard...");
 
         res.send(`
             <script>
