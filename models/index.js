@@ -12,17 +12,13 @@ const config = require('../config/config')[env];  // Ensure this path is correct
 //   config
 // );
 
-const sequelize = new Sequelize(process.env.DATABASE_URL, {
-  dialect: 'postgres',
-  protocol: 'postgres',
+const sequelize = new Sequelize(process.env.JAWSDB_URL, {
+  dialect: 'mysql',
+  protocol: 'mysql',
   dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false // <<<< You might need to add this if you encounter SSL errors
-    }
+    ssl: 'Amazon RDS'
   }
 });
-
 const db = {};
 
 // Read all model files in the directory, initialize them, and add them to the db object
