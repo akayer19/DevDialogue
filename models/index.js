@@ -5,12 +5,23 @@ const env = process.env.NODE_ENV || 'development';
 const config = require('../config/config')[env];  // Ensure this path is correct
 
 // Initialize sequelize with the database configuration
-const sequelize = new Sequelize(
-  config.database,
-  config.username,
-  config.password,
-  config
-);
+// const sequelize = new Sequelize(
+//   config.database,
+//   config.username,
+//   config.password,
+//   config
+// );
+
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
+  dialect: 'postgres',
+  protocol: 'postgres',
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false // <<<< You might need to add this if you encounter SSL errors
+    }
+  }
+});
 
 const db = {};
 
