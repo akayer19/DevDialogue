@@ -8,8 +8,11 @@ const router = express.Router();
 router.use(flash());
 
 router.get('/login', (req, res) => {
+    console.log("Checking if user is already logged in...");
     if (req.session.loggedIn) {
+        console.log("User is already logged in, redirecting to dashboard...");
         res.redirect('/');
+        console.log("Redirected to dashboard");
         return;
     }
     const errors = req.flash('error'); // Get flash messages
