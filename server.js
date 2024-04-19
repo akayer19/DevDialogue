@@ -74,7 +74,7 @@ app.use(dashboardRoutes);
 app.use('/comments', commentRoutes);
 
 // Sync database and start server
-sequelize.sync({ force: true }).then(() => {
+sequelize.sync({ force: false }).then(() => {
   console.log('Database synced!');
   app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
 }).catch(err => {
