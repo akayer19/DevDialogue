@@ -46,16 +46,16 @@ router.post('/login', async (req, res) => {
         console.log("router.post/login auth-routes User logged in successfully:", req.body.username);
 
         // Set userId and loggedIn in the session
-        req.session.userId = userData.id;
-        req.session.loggedIn = true;
-        console.log("router.post/login auth-routes Session userId:", req.session.userId); // Log userId
-        console.log("router.post/login auth-routes Session loggedIn:", req.session.loggedIn); // Log loggedIn flag
+        req.session.save(() => {
+            console.log("router.post/login auth-routes Session userId:", req.session.userId); // Log userId
+            console.log("router.post/login auth-routes Session loggedIn:", req.session.loggedIn); // Log loggedIn flag
 
-        // Send a response with a script to set userLoggedIn in localStorage
-        console.log("router.post/login auth-routes Redirecting to dashboard...");
-        
-        res.redirect('/dashboard');
-
+            // Send a response with a script to set userLoggedIn in localStorage
+            console.log("router.post/login auth-routes Redirecting to dashboard...");
+            req.session.userId = userData.id;
+            req.session.loggedIn = true;
+            res.redirect('/dashboard');
+        });
         // res.send(`
         //     <script>
         //         localStorage.setItem('userLoggedIn', 'true');
