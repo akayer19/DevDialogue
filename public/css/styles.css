@@ -66,7 +66,7 @@ h1 {
 .post-info {
     white-space: nowrap;    /* Keeps the post info in a single line */
     margin-left: 20px;      /* Adds some space between the title and the info */
-    padding: 0% 10%;        /* Adds padding to the post info */
+    padding: 0% 1%;        /* Adds padding to the post info */
 }
 
 .post-title a {
@@ -122,12 +122,11 @@ footer {
 }
 .comment-link, .edit-link {
     display: inline-block;
-    padding: 8px 16px;
+    padding: 3px 16px;
     background-color: #0066cc;
     color: #fff;
     border-radius: 4px;
     text-decoration: none;
-    margin-top: 10px;
 }
 
 .edit-link {
