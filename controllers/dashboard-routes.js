@@ -79,5 +79,44 @@ router.post('/delete/:postId', withAuth, async (req, res) => {
         res.status(500).json({ error: 'Failed to delete post' });
     }
 });
+// Route to render the edit form for a specific post
+router.get('/edit/:postId', withAuth, async (req, res) => {
+    const postId = req.params.postId;
+    try {
+        const post = await Post.findByPk(postId);
+        if (!post) {
+            return res.status(404).json({ error: 'Post not found' });
+        }
+        if (post.userId !== req.session.userId) {
+            return res.status(403).json({ error: 'Unauthorized' });
+        }
+        res.render('edit-post', { post });
+    } catch (error) {
+        console.error('Error rendering edit form:', error);
+        res.status(500).render('error', { message: 'Failed to render edit form' });
+    }
+});
+
+// Route to handle the submission of the edit form
+router.post('/edit/:postId', withAuth, async (req, res) => {
+    const postId = req.params.postId;
+    try {
+        const { title, content } = req.body;
+        const post = await Post.findByPk(postId);
+        if (!post) {
+            return res.status(404).json({ error: 'Post not found' });
+        }
+        if (post.userId !== req.session.userId) {
+            return res.status(403).json({ error: 'Unauthorized' });
+        }
+        await post.update({ title, content });
+        res.redirect('/dashboard');
+    } catch (error) {
+        console.error('Error editing post:', error);
+        res.status(500).render('error', { message: 'Failed to edit post' });
+    }
+});
+
+// Update the dashboard view to include an edit button for each post
 
 module.exports = router;

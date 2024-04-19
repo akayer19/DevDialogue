@@ -4,7 +4,6 @@
         <div class="post">
             <div class="post-top">
                 <h2 class="post-title"><a href="/post/{{this.id}}">{{this.title}}</a></h2>
-                <div class="post-info">Posted by {{this.User.username}} on {{formatDate this.createdAt}}</div>
                 <div class="post-buttons">
                     <a href="/edit/{{this.id}}" class="edit-link">Edit</a>
                     <form action="/delete/{{this.id}}" method="POST" class="delete-form">
@@ -12,6 +11,7 @@
                     </form>
                 </div>
             </div>
+            <div class="post-info">Posted by {{this.User.username}} on {{formatDate this.createdAt}}</div>
             <div class="post-content">{{this.content}}</div>
         </div>
         {{/each}}

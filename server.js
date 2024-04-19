@@ -16,6 +16,11 @@ const PORT = process.env.PORT || 3000;
 
 // Setup Handlebars view engine
 const hbs = exphbs.create({
+  // Set runtime options to allow prototype access
+  runtimeOptions: {
+    allowProtoMethodsByDefault: true,
+    allowProtoPropertiesByDefault: true
+  },
   helpers: {
     formatDate: function (date) {
       // Create a new Date object from the input date
