@@ -1,4 +1,9 @@
 console.log('Script loaded');
+const postTitle = document.getElementById('post-title');
+
+postTitle.addEventListener('click', function(event) {
+    handlePostClick(event, userLoggedIn);
+});
 
 // Submits a comment to the server for a specific post
 function submitComment(postId) {
@@ -74,26 +79,31 @@ function submitComment(postId) {
 }
 
 // Handles the click on a post title, determining if the user is logged in
-function handlePostClick(event, userLoggedIn) {
-    console.log('Script, Handling post click event');
-    console.log('Script, User logged in:', userLoggedIn); // Log whether the user is logged in
-    event.preventDefault();  // Prevent default anchor behavior
-    event.stopPropagation(); // Stop event bubbling
+function handlePostClick(event, postId) {
+    event.preventDefault();
+    event.stopPropagation();
 
-    if (!userLoggedIn) {
-        console.log('Script, Please log in to view post comments.'); // Or redirect to login
-        setTimeout(() => {
-            window.location.href = '/login'; // Redirects to login if not logged in
-        }, 1000); // Delay of 1000 milliseconds (1 second)
+    const commentBox = document.getElementById('comment-box-' + postId);
+    if (commentBox) {
+        commentBox.style.display = (commentBox.style.display === 'none' ? 'block' : 'none');
     } else {
-        console.log('User is logged in. Proceed with default behavior or further actions.');
-        // You can add more debugging logs or function calls here if needed
+        console.error('Comment box for post with ID ' + postId + ' not found');
     }
 }
+
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM content loaded');
     const userLoggedIn = JSON.parse(localStorage.getItem('userLoggedIn')); // Convert string to boolean
+    const postTitles = document.querySelectorAll('.post-title a');
+
+    postTitles.forEach(function(postTitle) {
+        postTitle.addEventListener('click', function(event) {
+            const postId = this.dataset.postId; // Assuming you set the post ID as a data attribute
+            handlePostClick(event, postId);
+        });
+    });
+
     const loginButton = document.getElementById('loginButton');
     const logoutButton = document.getElementById('logoutButton');
     

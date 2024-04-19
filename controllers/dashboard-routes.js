@@ -52,4 +52,32 @@ router.post('/new-post', async (req, res) => {
     }
 });
 
+router.post('/delete/:postId', withAuth, async (req, res) => {
+    const postId = req.params.postId;
+
+    try {
+        // Find the post by ID
+        const post = await Post.findByPk(postId);
+
+        // Check if the post exists
+        if (!post) {
+            return res.status(404).json({ error: 'Post not found' });
+        }
+
+        // Check if the logged-in user is the owner of the post
+        if (post.userId !== req.session.userId) {
+            return res.status(403).json({ error: 'Unauthorized' });
+        }
+
+        // Delete the post
+        await post.destroy();
+
+        // Redirect back to the dashboard
+        res.redirect('/dashboard');
+    } catch (error) {
+        console.error('Error deleting post:', error);
+        res.status(500).json({ error: 'Failed to delete post' });
+    }
+});
+
 module.exports = router;

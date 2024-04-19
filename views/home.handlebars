@@ -5,7 +5,7 @@
         <div class="post-top">
             <!-- Post title: click to toggle comment box -->
             <h2 class="post-title">
-                <a href="#" onclick="toggleCommentBox('{{this.id}}');">
+                <a href="javascript:void(0)" onclick="handlePostClick(event, '{{this.id}}');">
                     {{this.title}}
                 </a>
             </h2>
@@ -13,11 +13,6 @@
         </div>
         <div class="post-bottom">
             <p class="post-content">{{this.content}}</p>
-        </div>
-        <!-- Comment box always shown -->
-        <div id="comment-box-{{this.id}}" class="comment-box">
-            <textarea placeholder="Leave a comment..." rows="3"></textarea>
-            <button type="button" onclick="submitComment('{{this.id}}')">Submit Comment</button>
         </div>
     </div>
     {{/each}}

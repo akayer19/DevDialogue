@@ -23,53 +23,33 @@ router.get('/login', (req, res) => {
 
 router.post('/login', async (req, res) => {
     try {
-        console.log("router.post/login auth-routes Received login request with username:", req.body.username);
-
         const userData = await User.findOne({ where: { username: req.body.username } });
         
         if (!userData) {
-            console.log("router.post/login auth-routes User not found with username:", req.body.username);
             req.flash('error', 'Incorrect username or password, please try again');
             return res.redirect('/login');
         }
-
-        console.log("router.post/login auth-routes User found with username:", req.body.username);
 
         const validPassword = await bcrypt.compare(req.body.password, userData.password);
         
         if (!validPassword) {
-            console.log("router.post/login auth-routes Invalid password for user:", req.body.username);
             req.flash('error', 'Incorrect username or password, please try again');
             return res.redirect('/login');
         }
 
-        console.log("router.post/login auth-routes User logged in successfully:", req.body.username);
-
         // Set userId and loggedIn in the session
+        req.session.userId = userData.id;
+        req.session.loggedIn = true;
         req.session.save(() => {
-            console.log("router.post/login auth-routes Session userId:", req.session.userId); // Log userId
-            console.log("router.post/login auth-routes Session loggedIn:", req.session.loggedIn); // Log loggedIn flag
-
-            // Send a response with a script to set userLoggedIn in localStorage
-            console.log("router.post/login auth-routes Redirecting to dashboard...");
-            req.session.userId = userData.id;
-            req.session.loggedIn = true;
             res.redirect('/dashboard');
         });
-        // res.send(`
-        //     <script>
-        //         localStorage.setItem('userLoggedIn', 'true');
-        //         window.location.href = '/dashboard'; // Redirect to dashboard or home page
-        //     </script>
-        // `);
     } catch (err) {
-        console.error('router.post/login auth-routes Error during login:', err);
+        console.error('Error during login:', err);
         req.flash('error', 'Failed to log in due to server error');
         res.status(500).redirect('/login');
-    } finally {
-        req.session.errors = []; // Clear flash messages after they are displayed
     }
 });
+
 
 router.get('/signup', (req, res) => {
     res.render('signup');
