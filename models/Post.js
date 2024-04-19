@@ -7,10 +7,10 @@ module.exports = (sequelize, DataTypes) => {
   const Post = sequelize.define('Post', {
     title: DataTypes.STRING,
     content: DataTypes.TEXT,
-    createdAt: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW // Set default value to current date and time
-    },
+    // createdAt: {
+    //   type: DataTypes.DATE,
+    //   defaultValue: DataTypes.NOW // Set default value to current date and time
+    // },
     // other fields as necessary
   }, {
     // Define virtual attributes

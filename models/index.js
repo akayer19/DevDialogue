@@ -12,13 +12,30 @@ const config = require('../config/config')[env];  // Ensure this path is correct
 //   config
 // );
 
-const sequelize = new Sequelize(process.env.JAWSDB_URL, {
-  dialect: 'mysql',
-  protocol: 'mysql',
-  dialectOptions: {
-    ssl: 'Amazon RDS'
-  }
-});
+let sequelize;
+
+if (process.env.JAWSDB_URL) {
+  sequelize = new Sequelize(process.env.JAWSDB_URL);
+} else {
+  sequelize = new Sequelize(
+    process.env.DB_NAME,
+    process.env.DB_USER,
+    process.env.DB_PASS,
+    {
+      host: 'localhost',
+      dialect: 'mysql',
+      port: 3306
+    }
+  );
+}
+
+// const sequelize = new Sequelize(process.env.JAWSDB_URL, {
+//   dialect: 'mysql',
+//   protocol: 'mysql',
+//   dialectOptions: {
+//     ssl: 'Amazon RDS'
+//   }
+// });
 const db = {};
 
 // Read all model files in the directory, initialize them, and add them to the db object

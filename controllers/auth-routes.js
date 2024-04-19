@@ -56,12 +56,12 @@ router.post('/login', async (req, res) => {
             req.session.loggedIn = true;
             res.redirect('/dashboard');
         });
-        res.send(`
-            <script>
-                localStorage.setItem('userLoggedIn', 'true');
-                window.location.href = '/dashboard'; // Redirect to dashboard or home page
-            </script>
-        `);
+        // res.send(`
+        //     <script>
+        //         localStorage.setItem('userLoggedIn', 'true');
+        //         window.location.href = '/dashboard'; // Redirect to dashboard or home page
+        //     </script>
+        // `);
     } catch (err) {
         console.error('router.post/login auth-routes Error during login:', err);
         req.flash('error', 'Failed to log in due to server error');
@@ -70,11 +70,6 @@ router.post('/login', async (req, res) => {
         req.session.errors = []; // Clear flash messages after they are displayed
     }
 });
-
-
-
-
-
 
 router.get('/signup', (req, res) => {
     res.render('signup');
@@ -115,7 +110,5 @@ router.get('/logout', (req, res) => {
         res.redirect('/');
     }
 });
-
-
 
 module.exports = router;

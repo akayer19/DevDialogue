@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
         // Render the 'home' view with posts and login status
         res.render('home', {
             posts: posts,
-            userLoggedIn: req.session.userId != null  // Pass this to your template
+            userLoggedIn: req.session.userId != null  
         });
         console.log("router.get/home-routes Rendered dashboard");
     } catch (err) {

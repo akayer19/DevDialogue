@@ -42,10 +42,16 @@ console.log("SESSION_SECRET:", sessionSecret);
 
 app.use(session({
   secret: sessionSecret,
-  store: new SequelizeStore({ db: sequelize }),
+  cookie: { 
+    maxAge: 86400,
+    httpOnly: true,
+    secure: false,
+    sameSite: 'strict',
+  },
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: env === 'production' } // Ensure secure cookies in production
+  store: new SequelizeStore({ db: sequelize }),
+  // cookie: { secure: env === 'production' } // Ensure secure cookies in production
 }));
 
 app.use(flash());  // Use flash for storing session messages
@@ -68,7 +74,7 @@ app.use(dashboardRoutes);
 app.use('/comments', commentRoutes);
 
 // Sync database and start server
-sequelize.sync({ force: false }).then(() => {
+sequelize.sync({ force: true }).then(() => {
   console.log('Database synced!');
   app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
 }).catch(err => {
