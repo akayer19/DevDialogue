@@ -53,6 +53,8 @@ router.post('/login', async (req, res) => {
 
         // Send a response with a script to set userLoggedIn in localStorage
         console.log("router.post/login auth-routes Redirecting to dashboard...");
+        
+        res.redirect('/dashboard');
 
         // res.send(`
         //     <script>
