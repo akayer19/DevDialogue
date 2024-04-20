@@ -47,7 +47,9 @@ Contributions to the Tech Blog project are welcome! If you find any bugs or have
 Local Testing
 
 ## Screenshot
-![Screenshot](./utils/screenshot.png)
+![Screenshot](https://github.com/akayer19/DevDialogue/blob/main/public/images/Dashboard_Screen.png)
+![Screenshot](https://github.com/akayer19/DevDialogue/blob/main/public/images/Home_Screen.png)
+![Screenshot](https://github.com/akayer19/DevDialogue/blob/main/public/images/Login_Screen.png)
 
 ## Questions
 - If you have any questions, you can reach me on GitHub: <a href="https://github.com/akayer19" target="_blank">GitHub Profile</a>
