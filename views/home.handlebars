@@ -1,19 +1,48 @@
-<main>
-    <h1>Welcome to the Homepage</h1>
-    {{#each posts}}
-    <div class="post">
-        <div class="post-top">
-            <!-- Post title: click to toggle comment box -->
-            <h2 class="post-title">
-                <a href="javascript:void(0)" onclick="handlePostClick(event, '{{this.id}}');">
-                    {{this.title}}
-                </a>
-            </h2>
-            <p class="post-info">Posted by {{this.User.username}} on {{formatDate this.createdAt}}</p>
-        </div>
-        <div class="post-bottom">
-            <p class="post-content">{{this.content}}</p>
-        </div>
-    </div>
-    {{/each}}
-</main>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Homepage</h1>
+    </header>
+    <main>
+        {{#each posts}}
+            <div class="post">
+                <div class="post-top">
+                    <!-- Post title: click to toggle comment box -->
+                    <h2 class="post-title">
+                        <a href="javascript:void(0)" onclick="handlePostClick(event, '{{this.id}}');">
+                            {{this.title}}
+                        </a>
+                    </h2>
+                    <p class="post-info">Posted by {{this.User.username}} on {{formatDate this.createdAt}}</p>
+                </div>
+                <div class="post-bottom">
+                    <p class="post-content">{{this.content}}</p>
+                    <!-- Comment box -->
+                    <div class="comment-box" id="comment-box-{{this.id}}">
+                        <textarea id="comment-textarea-{{this.id}}" rows="4" name="comment" placeholder="Write a comment..."></textarea>
+                        <button id="submit-button-{{this.id}}" onclick="submitComment('{{this.id}}')">Submit</button>
+                    </div>
+                </div>
+                <!-- Display comments for the post -->
+                {{#if this.Comments}}
+                    <div class="comments">
+                        <h3>Comments:</h3>
+                        <ul>
+                            {{#each this.Comments}}
+                                <li>{{this.content}} - {{this.User.username}}</li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                {{/if}}
+            </div>
+        {{/each}}
+    </main>
+</body>
+</html>

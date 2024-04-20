@@ -1,8 +1,8 @@
 // models/comment.js
 
-const { Sequelize, DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize) => {
   const Comment = sequelize.define('Comment', {
     content: {
       type: DataTypes.TEXT,

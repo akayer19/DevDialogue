@@ -1,20 +1,29 @@
-<main>
-    <div class="post">
-        <h2>{{post.title}}</h2>
-        <p>{{post.content}}</p>
-        <p>Posted by {{post.User.username}} on {{post.createdAt}}</p>
-    </div>
-
-    <!-- Form for creating comments -->
-    <form id="commentForm">
-        <textarea name="content" placeholder="Write your comment here..."></textarea>
-        <button type="submit">Submit</button>
-    </form>
-
-    <!-- Display comments -->
-    <div id="comments">
-        {{#each post.comments}}
-            <p>{{this.content}} - {{this.User.username}}</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post</title>
+</head>
+<body>
+    <header>
+        <h1>Post</h1>
+    </header>
+    <main>
+        <div class="post">
+            <h2>{{post.title}}</h2>
+            <p>Posted by {{post.User.username}} on {{formatDate post.createdAt}}</p>
+            <p>{{post.content}}</p>
+        </div>
+        <hr>
+        <h2>Comments</h2>
+        {{#each comments}}
+            <div class="comment">
+                <p>Comment by {{this.User.username}} on {{formatDate this.createdAt}}</p>
+                <p>{{this.content}}</p>
+            </div>
+            <hr>
         {{/each}}
-    </div>
-</main>
+    </main>
+</body>
+</html>

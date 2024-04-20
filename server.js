@@ -70,13 +70,13 @@ app.use(express.static('public'));
 const homeRoutes = require('./controllers/home-routes');
 const authRoutes = require('./controllers/auth-routes'); // Import authentication routes
 const dashboardRoutes = require('./controllers/dashboard-routes'); // Import dashboard routes
-const commentRoutes = require('./controllers/comment-routes');
+//const commentRoutes = require('./controllers/comment-routes');
 
 // Use routes
 app.use(homeRoutes);
 app.use(authRoutes);
 app.use(dashboardRoutes);
-app.use('/comments', commentRoutes);
+//app.use('/comment', commentRoutes);
 
 // Sync database and start server
 sequelize.sync({ force: false }).then(() => {

@@ -143,8 +143,80 @@ footer {
 
 .post-buttons {
     margin-top: 10px;
+    justify-content: flex-end; 
+    align-items: center;
 }
 
 .delete-form {
     margin-left: auto;
+}
+/* Add CSS for the comment box */
+.comment-box {
+    display: none; /* Hide the comment box by default */
+    background-color: #f9f9f9;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 8px;
+}
+
+.comment-box textarea {
+    width: 100%;
+    padding: 5px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+.comment-box button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.comment-box button:hover {
+    background-color: #45a049;
+}
+
+.comments {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.comments h3 {
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.comments ul {
+    list-style-type: none;
+    padding: 0;
+    color: #333;
+}
+
+.comments li {
+    padding: 5px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.comments li:last-child {
+    border-bottom: none;
+}
+
+.comments li p {
+    margin: 0;
+    font-size: 16px;
+}
+
+.comments li .username {
+    font-weight: bold;
+    color: #007bff;
 }
